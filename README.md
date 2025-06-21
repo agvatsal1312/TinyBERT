@@ -39,7 +39,7 @@ A minimal BERT-like transformer model for **Semantic Search** corresponding to s
 ## 🖼️ Model Architecture
 
 ![BERT Architecture](1_VtfbRAAiQhb0IUi7fSKTaQ.png)<br>
-![Model arch](Screenshot 2025-06-21 214618.png)
+![Model arch](model_arc.png)
 
 <sub>
 <b>Figure:</b> BERT model architecture (source: <a href="https://arxiv.org/abs/1810.04805">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a>, Devlin et al., 2018)
