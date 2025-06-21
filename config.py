@@ -1,0 +1,19 @@
+import torch
+vocab_size=30000
+special_tokens=["[UNK]", "[CLS]", "[SEP]", "[PAD]"]
+n_segments=2
+max_len=350
+embedd_dim=768
+n_layers=8
+attn_heads=12
+dropout=0.1
+d_ff=1600
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+nli_batch_size=32
+nq_batch_size=8
+nli_epochs=10       # I actually trained for only 3 epochs due to colab's GPU limits
+nq_epochs=10       #I actually trained for only 1 epoch due to colab's GPU limits
+nli_lr=3e-4
+nq_lr=3e-4
+tokenizer_file_path="tokenizer-wiki.json"
+model_file_path="model.pt"

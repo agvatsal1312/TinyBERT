@@ -1,0 +1,6 @@
+torch
+datasets
+tokenizers
+huggingface-hub
+fsspec
+tqdm
