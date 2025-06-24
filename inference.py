@@ -9,7 +9,7 @@ import torch.nn.functional as F
 def load_model(model_path):
     model=build_transformer(config.vocab_size,config.n_segments,config.embedd_dim,config.max_len,config.n_layers,config.attn_heads,config.dropout,config.d_ff,config.d_ff,False,2)
     if Path(model_path).exists():
-        checkpoint=torch.load("model_trained_on_MARCO_1.pt", map_location=torch.device("cpu"))
+        checkpoint=torch.load(model_path, map_location=torch.device("cpu"))
         model.load_state_dict(checkpoint["model"])
         model=model.to(config.device)
         print("model loaded successfully ✅")
@@ -45,17 +45,17 @@ def semantic_search(input_data):
     # Top-k most similar chunks
     topk_indices = torch.topk(similarities, input_data["top_k"]).indices.tolist()
     print(topk_indices)
-    results = [input_data.chunks[i] for i in topk_indices]
+    results = [input_data["chunks"][i] for i in topk_indices]
 
-    return {"result": results}
+    return  results
 
 
 
 if __name__=="__main__":
     model=load_model(config.model_file_path)
     tokenizer=load_tokenizer()
-    data={"query":None,"chunks":None,"top_k":None}     #set query ,chunks , top_k accordinly.
-    results=semantic_search(data,model,tokenizer)
+    data={"query":"How is Jaigarh Fort? Is it a good place to visit?","chunks":["Jaigarh Fort is an amazing place to visit, but there is vehcle problems usually","Pink Pearl,Fun Kingdom are reaaly bad places.","The Fort is situated in between the hills offers scenic beauty."],"top_k":2}     #set query ,chunks , top_k accordinly.
+    results=semantic_search(data)
     for i,chunk in enumerate(results):
         print(f"{i+1} Match 👉👉 {chunk}")
 
