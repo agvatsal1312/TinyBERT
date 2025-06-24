@@ -38,7 +38,7 @@ A minimal BERT-like transformer model for **Semantic Search** corresponding to s
 
 ## 🖼️ Model Architecture
 
-![BERT Architecture](1_VtfbRAAiQhb0IUi7fSKTaQ.png)<br>
+
 ![Model arch](model_arc.png)
 
 <sub>
@@ -86,7 +86,7 @@ A minimal BERT-like transformer model for **Semantic Search** corresponding to s
 - The model is trained in two phases:
   1. **Classifier head on top of Transformer** trained on [NLI dataset](https://huggingface.co/datasets/sentence-transformers/all-nli) for 3-class classification.
   2. **Only the transformer** trained on [Natural Questions dataset](https://huggingface.co/datasets/sentence-transformers/natural-questions) for semantic search.
-- The model was trained for only 3 epochs (1 epoch for each phase) due to Colab's GPU limits.
+- The model was trained for only 3 epochs for phase 1 and only 1 epoch for phase 2 due to Colab's GPU limits.
 
 ---
 
