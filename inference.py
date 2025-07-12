@@ -12,6 +12,7 @@ def load_model(model_path):
         checkpoint=torch.load(model_path, map_location=torch.device("cpu"))
         model.load_state_dict(checkpoint["model"])
         model=model.to(config.device)
+        model.eval()
         print("model loaded successfully ✅")
     else:
         raise FileNotFoundError(f"Model file not found at {model_path}")
@@ -36,15 +37,15 @@ def semantic_search(input_data):
 
     query_emb = embeddings[0]
     chunk_embs = embeddings[1:]
-    print(chunk_embs.shape)
+    # print(chunk_embs.shape)
 
     # Cosine similarity
     similarities = F.cosine_similarity(query_emb.unsqueeze(0), chunk_embs)
-    print(similarities.shape)
+    # print(similarities.shape)
 
     # Top-k most similar chunks
     topk_indices = torch.topk(similarities, input_data["top_k"]).indices.tolist()
-    print(topk_indices)
+    # print(topk_indices)
     results = [input_data["chunks"][i] for i in topk_indices]
 
     return  results
@@ -54,7 +55,10 @@ def semantic_search(input_data):
 if __name__=="__main__":
     model=load_model(config.model_file_path)
     tokenizer=load_tokenizer()
-    data={"query":"How is Jaigarh Fort? Is it a good place to visit?","chunks":["Jaigarh Fort is an amazing place to visit, but there is vehcle problems usually","Pink Pearl,Fun Kingdom are reaaly bad places.","The Fort is situated in between the hills offers scenic beauty."],"top_k":2}     #set query ,chunks , top_k accordinly.
+    data={"query":"Who founded a company?","chunks":["J.K. Rowling is the author of the Harry Potter series.",
+    "The Eiffel Tower is located in Paris.",
+    "Microsoft was founded by Bill Gates.",
+    "The book was written by a British novelist."],"top_k":1}     #set query ,chunks , top_k accordinly.
     results=semantic_search(data)
     for i,chunk in enumerate(results):
         print(f"{i+1} Match 👉👉 {chunk}")
